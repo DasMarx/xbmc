@@ -597,40 +597,40 @@ bool CDVDPlayer::OpenInputStream()
   }
 
   // find any available external subtitles for non dvd files
-  if (!m_pInputStream->IsStreamType(DVDSTREAM_TYPE_DVD)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_PVRMANAGER)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_TV)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_HTSP))
-  {
-    // find any available external subtitles
-    std::vector<CStdString> filenames;
-    CUtil::ScanForExternalSubtitles( m_filename, filenames );
+  //if (!m_pInputStream->IsStreamType(DVDSTREAM_TYPE_DVD)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_PVRMANAGER)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_TV)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_HTSP))
+  //{
+  //  // find any available external subtitles
+  //  std::vector<CStdString> filenames;
+  //  CUtil::ScanForExternalSubtitles( m_filename, filenames );
 
-    // find any upnp subtitles
-    CStdString key("upnp:subtitle:1");
-    for(unsigned s = 1; m_item.HasProperty(key); key.Format("upnp:subtitle:%u", ++s))
-      filenames.push_back(m_item.GetProperty(key).asString());
+  //  // find any upnp subtitles
+  //  CStdString key("upnp:subtitle:1");
+  //  for(unsigned s = 1; m_item.HasProperty(key); key.Format("upnp:subtitle:%u", ++s))
+  //    filenames.push_back(m_item.GetProperty(key).asString());
 
-    for(unsigned int i=0;i<filenames.size();i++)
-    {
-      // if vobsub subtitle:
-      if (URIUtils::GetExtension(filenames[i]) == ".idx")
-      {
-        CStdString strSubFile;
-        if ( CUtil::FindVobSubPair( filenames, filenames[i], strSubFile ) )
-          AddSubtitleFile(filenames[i], strSubFile);
-      }
-      else
-      {
-        if ( !CUtil::IsVobSub(filenames, filenames[i] ) )
-        {
-          AddSubtitleFile(filenames[i]);
-        }
-      }
-    } // end loop over all subtitle files
+  //  for(unsigned int i=0;i<filenames.size();i++)
+  //  {
+  //    // if vobsub subtitle:
+  //    if (URIUtils::GetExtension(filenames[i]) == ".idx")
+  //    {
+  //      CStdString strSubFile;
+  //      if ( CUtil::FindVobSubPair( filenames, filenames[i], strSubFile ) )
+  //        AddSubtitleFile(filenames[i], strSubFile);
+  //    }
+  //    else
+  //    {
+  //      if ( !CUtil::IsVobSub(filenames, filenames[i] ) )
+  //      {
+  //        AddSubtitleFile(filenames[i]);
+  //      }
+  //    }
+  //  } // end loop over all subtitle files
 
-    g_settings.m_currentVideoSettings.m_SubtitleCached = true;
-  }
+  //  g_settings.m_currentVideoSettings.m_SubtitleCached = true;
+  //}
 
   SetAVDelay(g_settings.m_currentVideoSettings.m_AudioDelay);
   SetSubTitleDelay(g_settings.m_currentVideoSettings.m_SubtitleDelay);
