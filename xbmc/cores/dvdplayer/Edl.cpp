@@ -113,7 +113,6 @@ bool CEdl::ReadEditDecisionLists(const CStdString& strMovie, const float fFrameR
    * network share.
    */
   if ((URIUtils::IsHD(strMovie)  || 
-       URIUtils::IsSmb(strMovie) || 
        URIUtils::IsNfs(strMovie) || 
        URIUtils::IsAfp(strMovie))         &&
       !URIUtils::IsPVRRecording(strMovie) &&
