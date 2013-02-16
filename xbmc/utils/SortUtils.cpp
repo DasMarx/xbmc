@@ -651,12 +651,14 @@ void SortUtils::Sort(SortBy sortBy, SortOrder sortOrder, SortAttribute attribute
     if (preparator != NULL)
     {
       Fields sortingFields = GetFieldsForSorting(sortBy);
+	  Fields::const_iterator field = sortingFields.begin();
+	  Fields::const_iterator fieldEnd = sortingFields.end();
 
       // Prepare the string used for sorting and store it under FieldSort
-      for (SortItems::iterator item = items.begin(); item != items.end(); item++)
+      for (SortItems::iterator item = items.begin(), itemEnd = items.end(); item != itemEnd; item++)
       {
         // add all fields to the item that are required for sorting if they are currently missing
-        for (Fields::const_iterator field = sortingFields.begin(); field != sortingFields.end(); field++)
+        for (field = sortingFields.begin(); field != fieldEnd; field++)
         {
           if (item->find(*field) == item->end())
             item->insert(pair<Field, CVariant>(*field, CVariant::ConstNullVariant));
