@@ -677,41 +677,41 @@ bool CDVDPlayer::OpenInputStream()
     return false;
   }
 
-  // find any available external subtitles for non dvd files
-  if (!m_pInputStream->IsStreamType(DVDSTREAM_TYPE_DVD)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_PVRMANAGER)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_TV)
-  &&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_HTSP))
-  {
-    // find any available external subtitles
-    std::vector<CStdString> filenames;
-    CUtil::ScanForExternalSubtitles( m_filename, filenames );
+  //// find any available external subtitles for non dvd files
+  //if (!m_pInputStream->IsStreamType(DVDSTREAM_TYPE_DVD)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_PVRMANAGER)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_TV)
+  //&&  !m_pInputStream->IsStreamType(DVDSTREAM_TYPE_HTSP))
+  //{
+  //  // find any available external subtitles
+  //  std::vector<CStdString> filenames;
+  //  CUtil::ScanForExternalSubtitles( m_filename, filenames );
 
-    // find any upnp subtitles
-    CStdString key("upnp:subtitle:1");
-    for(unsigned s = 1; m_item.HasProperty(key); key = StringUtils::Format("upnp:subtitle:%u", ++s))
-      filenames.push_back(m_item.GetProperty(key).asString());
+  //  // find any upnp subtitles
+  //  CStdString key("upnp:subtitle:1");
+  //  for(unsigned s = 1; m_item.HasProperty(key); key = StringUtils::Format("upnp:subtitle:%u", ++s))
+  //    filenames.push_back(m_item.GetProperty(key).asString());
 
-    for(unsigned int i=0;i<filenames.size();i++)
-    {
-      // if vobsub subtitle:
-      if (URIUtils::HasExtension(filenames[i], ".idx"))
-      {
-        CStdString strSubFile;
-        if ( CUtil::FindVobSubPair( filenames, filenames[i], strSubFile ) )
-          AddSubtitleFile(filenames[i], strSubFile);
-      }
-      else
-      {
-        if ( !CUtil::IsVobSub(filenames, filenames[i] ) )
-        {
-          AddSubtitleFile(filenames[i]);
-        }
-      }
-    } // end loop over all subtitle files
+  //  for(unsigned int i=0;i<filenames.size();i++)
+  //  {
+  //    // if vobsub subtitle:
+  //    if (URIUtils::HasExtension(filenames[i], ".idx"))
+  //    {
+  //      CStdString strSubFile;
+  //      if ( CUtil::FindVobSubPair( filenames, filenames[i], strSubFile ) )
+  //        AddSubtitleFile(filenames[i], strSubFile);
+  //    }
+  //    else
+  //    {
+  //      if ( !CUtil::IsVobSub(filenames, filenames[i] ) )
+  //      {
+  //        AddSubtitleFile(filenames[i]);
+  //      }
+  //    }
+  //  } // end loop over all subtitle files
 
-    CMediaSettings::Get().GetCurrentVideoSettings().m_SubtitleCached = true;
-  }
+  //  CMediaSettings::Get().GetCurrentVideoSettings().m_SubtitleCached = true;
+  //}
 
   SetAVDelay(CMediaSettings::Get().GetCurrentVideoSettings().m_AudioDelay);
   SetSubTitleDelay(CMediaSettings::Get().GetCurrentVideoSettings().m_SubtitleDelay);
@@ -1054,7 +1054,7 @@ void CDVDPlayer::Process()
   if (m_CurrentVideo.id >= 0 && m_CurrentVideo.hint.fpsrate > 0 && m_CurrentVideo.hint.fpsscale > 0)
   {
     float fFramesPerSecond = (float)m_CurrentVideo.hint.fpsrate / (float)m_CurrentVideo.hint.fpsscale;
-    m_Edl.ReadEditDecisionLists(m_filename, fFramesPerSecond, m_CurrentVideo.hint.height);
+    //m_Edl.ReadEditDecisionLists(m_filename, fFramesPerSecond, m_CurrentVideo.hint.height);
   }
 
   /*
